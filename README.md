@@ -1,116 +1,163 @@
 # LLM Preference Classification Fine-Tuning
 
-Parameter-efficient fine-tuning for predicting which of two chatbot responses a human will prefer.
+Parameter-efficient fine-tuning for predicting which of two chatbot responses human annotators prefer. This repository is the public, reproducible companion to my work on [Kaggle's LLM Classification Finetuning competition](https://www.kaggle.com/competitions/llm-classification-finetuning).
 
-This repository is the public, reproducible companion to my Kaggle work on [LLM Classification Finetuning](https://www.kaggle.com/competitions/llm-classification-finetuning). Each example contains a prompt and two candidate responses; the model predicts a three-class probability distribution:
+The task is a three-class probability prediction problem. Each row contains a `prompt`, `response_a`, and `response_b`; the model predicts:
 
 ```text
 winner_model_a | winner_model_b | winner_tie
 ```
 
-The project focuses on the engineering needed for preference probabilities rather than a hard winner: order-aware augmentation, prompt-grouped cross-validation, LoRA fine-tuning, label smoothing, swap-aware test-time augmentation, and fold probability averaging. Gemma-2 9B and ModernBERT-large are both first-class modeling workflows in this project.
+The metric is multiclass log loss, so calibrated probabilities matter more than simply selecting a hard winner.
 
-## Verified project results
+## Current project state
 
-| Experiment | Log loss | Evaluation scope | Status |
+The two primary modeling tracks are:
+
+```text
+ModernBERT-large + LoRA + grouped CV + response-order augmentation + swap TTA
+Gemma-2 9B      + LoRA + grouped CV + response-order augmentation + swap TTA
+```
+
+Both are first-class workflows. The public package contains reusable implementation; notebooks preserve readable GPU/Kaggle experiment records. Competition data, gated model weights, adapters, and credentials are supplied by the user at runtime rather than distributed here.
+
+## CV-ready project description
+
+These are the project bullets supported by repository evidence:
+
+- Engineered an LLM preference-ranking system for Kaggle, predicting three-way human choices from paired chatbot responses.
+- Fine-tuned Gemma-2 9B and ModernBERT-large with LoRA, grouped CV, label smoothing, and 2K inputs for preference ranking.
+- Strengthened generalization with response-order augmentation, swap-aware TTA, fold ensembling, and probability averaging.
+- Recorded 0.99655 validation log loss with Gemma-2 9B, outperforming the 1.01218 ModernBERT LoRA baseline on the same split.
+
+The precise provenance of every bullet is documented in [`docs/cv-provenance.md`](docs/cv-provenance.md).
+
+## Verified results
+
+| Experiment | Log loss | Scope | Evidence status |
 |---|---:|---|---|
-| ModernBERT frozen-head baseline | 1.07855 | Kaggle public leaderboard | Verified from CLI submission history |
-| ModernBERT-large LoRA, fold 1 | 1.01218 | Local validation, fold 1 | Verified from Kaggle CLI-pulled metrics |
-| ModernBERT-large LoRA, fold-1 inference | 1.01474 | Kaggle public leaderboard | Verified from CLI submission history |
-| ModernBERT-large LoRA, three-fold inference | 1.01414 | Kaggle public leaderboard | Verified from CLI submission history |
-| Gemma-2 9B LoRA | 0.99655 | Local validation, fold 1, 2,048-token input | Verified from `evidence/gemma2_fold1_metrics.json` |
+| Constant probability baseline | 1.09794 | Kaggle public leaderboard | Recorded in source project audit |
+| TF-IDF logistic regression | 1.11052 | Local validation | Recorded in source project audit |
+| ModernBERT frozen classifier head | 1.07855 | Kaggle public leaderboard | Verified from submission history |
+| ModernBERT-large LoRA, fold 1 | 1.01218 | Local validation, fold 1 | Verified from CLI-pulled metrics |
+| ModernBERT-large LoRA, fold-1 inference | 1.01474 | Kaggle public leaderboard | Verified from submission history |
+| ModernBERT-large LoRA, three-fold inference | 1.01414 | Kaggle public leaderboard | Verified from submission history |
+| Gemma-2 9B LoRA | 0.99655 | Local validation, fold 1, 2,048-token input | Verified from metric artifact |
 
-The two local values are validation results, not final Kaggle leaderboard scores. The Gemma value is a fold-1 result; it must not be described as a completed three-fold aggregate. The ModernBERT public scores are separate inference submissions and should not be conflated with the local fold metric. Results are intentionally labeled this way so the repository justifies the CV claims without overstating them.
+The local values are not leaderboard scores. The Gemma value is a fold-1 validation result, not a completed three-fold aggregate. The public ModernBERT scores are separate inference submissions.
 
 ## Method
 
 ```text
 prompt + response A + response B
               │
-      tokenize with a fixed budget
+      fixed 2,048-token budget
               │
   original + response-order-swapped rows
               │
-  GroupKFold by prompt (no prompt leakage)
+  GroupKFold by prompt to prevent leakage
               │
      ModernBERT-large or Gemma-2 9B
               │
-          LoRA adapters
+             LoRA
               │
-        3-class probabilities
+        three-class probabilities
               │
-  swap back → average TTA probabilities
+  remap swapped outputs → average TTA
               │
           average fold outputs
 ```
 
-Training swaps the two responses and swaps the A/B labels at the same time. At inference, the swapped prediction is mapped back with `[1, 0, 2]` before averaging, so class semantics remain correct while positional bias is reduced.
+During training, swapping the two responses also swaps the A/B labels. During inference, swapped predictions are remapped with `[1, 0, 2]` before averaging.
 
-## Repository layout
+## Repository structure
 
 ```text
-src/preference_classifier/   reusable data, augmentation, evaluation, model, and ensemble code
-configs/                     transparent ModernBERT and Gemma experiment settings
-notebooks/                   selected source notebooks and readable experiment records
-experiments/                 metric table and provenance notes
-evidence/                    small, non-sensitive metric artifacts supporting reported values
-docs/                        architecture, data, reproducibility, and Kaggle notes
-tests/                       deterministic unit and smoke tests
+.
+├── .github/workflows/       CI quality checks
+├── configs/                 ModernBERT and Gemma experiment templates
+├── docs/                    architecture, data, provenance, and workflows
+├── evidence/                small non-sensitive metric artifacts
+├── experiments/             result tables and artifact inventory
+├── notebooks/               readable GPU/Kaggle experiment records
+├── scripts/                 public repository audit utilities
+├── src/preference_classifier/
+│   ├── baselines.py         constant and TF-IDF reference baselines
+│   ├── data.py              schema and label handling
+│   ├── augmentation.py      response swaps and label remapping
+│   ├── preprocessing.py     formatting and token-budget helpers
+│   ├── splits.py            prompt-grouped cross-validation
+│   ├── models.py            lazy LoRA construction and model defaults
+│   ├── training.py          loss, seeding, and OOF helpers
+│   ├── inference.py         TTA and fold ensembling
+│   ├── evaluation.py        log loss and probability validation
+│   └── submission.py        competition submission formatting
+├── tests/                   deterministic unit and API tests
+├── CITATION.cff
+├── CONTRIBUTING.md
+├── LICENSE
+├── pyproject.toml
+└── README.md
 ```
 
-## Quickstart
+Every serious experiment should have a readable notebook under `notebooks/` and a corresponding metric/provenance entry under `experiments/` or `evidence/`.
+
+## Setup
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+.\\.venv\\Scripts\\Activate.ps1
+python -m pip install --upgrade pip
 python -m pip install -e ".[dev]"
-python -m pytest
+python -m pytest -q
 ```
 
-The public repository does not distribute competition data, credentials, model weights, or adapter checkpoints. Obtain the data through Kaggle under its applicable terms, then point commands at a local directory containing `train.csv`, `test.csv`, and (for training) the three target columns. The expected schema is documented in [`docs/data-card.md`](docs/data-card.md).
-
-Run the lightweight deterministic utilities without a model:
+CPU-safe commands:
 
 ```powershell
-python -m preference_classifier.cli validate-data --path path\to\train.csv
 python -m preference_classifier.cli demo-swap
+python -m preference_classifier.cli validate-data --path path\\to\\train.csv
+python -m preference_classifier.cli show-config --path configs\\gemma2_lora.example.yaml
+python -m preference_classifier.cli make-constant-submission --path path\\to\\test.csv --output outputs\\constant_submission.csv
 ```
 
-The public workflow also exposes configuration inspection and a deterministic
-constant-probability submission:
-
-```powershell
-python -m preference_classifier.cli show-config --path configs\gemma2_lora.example.yaml
-python -m preference_classifier.cli make-constant-submission --path path\to\test.csv --output outputs\constant_submission.csv
-```
-
-Full LoRA training requires a compatible CUDA GPU and the model files. The configurations in `configs/` are templates; they do not download or commit model weights.
+A test CSV needs `id`, `prompt`, `response_a`, and `response_b`. A training CSV additionally needs the three target columns. See [`docs/data-card.md`](docs/data-card.md).
 
 ## Reproduction tracks
 
-- **Baseline:** constant probabilities and TF-IDF logistic regression for sanity checks.
-- **Gemma-2 9B LoRA:** primary decoder fine-tuning path; the original run used a 2,048-token budget and recorded the fold-1 metric above.
-- **ModernBERT-large LoRA:** primary encoder fine-tuning path with grouped folds, label smoothing, response swapping, and swap TTA.
-- **Kaggle inference:** use the selected notebooks after attaching the permitted competition data, base model, and private adapter artifacts.
+### Baseline
 
-The notebooks are evidence and runnable templates; the reusable package is the canonical implementation boundary for new work.
+Use the constant-probability and TF-IDF baselines to verify data loading, labels, probability formatting, and local evaluation before using a GPU.
 
-## Limitations and honest scope
+### ModernBERT-large LoRA
 
-- Kaggle competition data and trained weights are not redistributed here.
-- The best Gemma result is a single recorded validation fold, not a completed aggregate.
-- The public leaderboard score and local validation scores use different evaluation scopes.
-- Large-model training is compute-intensive and requires external GPU infrastructure.
-- The repository documents the original implementation and provenance; it does not claim that a fresh run will produce identical scores without the same data, model revision, seed, hardware, and configuration.
+Use [`configs/modernbert_lora.yaml`](configs/modernbert_lora.yaml) and the ModernBERT notebooks. The recorded workflow uses prompt-grouped folds, response swaps, LoRA, 2,048-token inputs, swap TTA, and fold probability averaging.
 
-## Sources and attribution
+### Gemma-2 9B LoRA
 
-- Kaggle competition: [LLM Classification Finetuning](https://www.kaggle.com/competitions/llm-classification-finetuning)
-- ModernBERT model family: [Answer.AI ModernBERT](https://huggingface.co/answerdotai/ModernBERT-large)
-- Gemma model family: [Google Gemma](https://huggingface.co/google/gemma-2-9b)
-- Parameter-efficient fine-tuning: [Hugging Face PEFT](https://huggingface.co/docs/peft)
+Use [`configs/gemma2_lora.example.yaml`](configs/gemma2_lora.example.yaml) and [`notebooks/gemma2_lora_external_gpu_training.ipynb`](notebooks/gemma2_lora_external_gpu_training.ipynb). The recorded fold-1 artifact uses a 2,048-token budget and reports validation log loss `0.9965459017`.
 
-See [`docs/reproducibility.md`](docs/reproducibility.md) and [`experiments/results.csv`](experiments/results.csv) for provenance and configuration details.
-The end-to-end public execution guide is [`docs/public-workflow.md`](docs/public-workflow.md).
-Repository verification and publication boundaries are documented in [`docs/phase-5-quality.md`](docs/phase-5-quality.md).
-Release and contribution guidance is available in [`docs/release-checklist.md`](docs/release-checklist.md), [`CONTRIBUTING.md`](CONTRIBUTING.md), and [`SECURITY.md`](SECURITY.md).
+### Kaggle/GPU execution
+
+The notebooks are templates and evidence records. On Kaggle or another GPU host, attach permitted competition data, base models, and private adapters through that platform's normal interface. Then write `submission.csv` to the host's working directory. Do not place credentials, private dataset packages, or model weights in this repository.
+
+See [`docs/public-workflow.md`](docs/public-workflow.md) and [`docs/kaggle-submission-audit.md`](docs/kaggle-submission-audit.md).
+
+## Provenance and honest scope
+
+The repository deliberately separates local validation from leaderboard scores. Every reported value has a source artifact, evaluation scope, and limitation in [`experiments/results.csv`](experiments/results.csv), [`evidence/`](evidence/), and [`docs/cv-provenance.md`](docs/cv-provenance.md).
+
+Fresh runs may differ because of data versions, model revisions, seeds, GPU hardware, library versions, and private adapter artifacts. The repository justifies the engineering claims; it does not promise bitwise reproduction without the original runtime inputs.
+
+## External references
+
+- [Kaggle LLM Classification Finetuning](https://www.kaggle.com/competitions/llm-classification-finetuning)
+- [Answer.AI ModernBERT-large](https://huggingface.co/answerdotai/ModernBERT-large)
+- [Google Gemma-2 9B](https://huggingface.co/google/gemma-2-9b)
+- [Hugging Face PEFT](https://huggingface.co/docs/peft)
+
+The external Kaggle notebooks listed in [`docs/external-sources.md`](docs/external-sources.md) are methodological references only; their checkpoints and scores are not claimed as project results.
+
+## Contribution and publication
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md), [`SECURITY.md`](SECURITY.md), and [`docs/release-checklist.md`](docs/release-checklist.md). Run `python scripts/audit_public_repo.py` before publishing changes.
