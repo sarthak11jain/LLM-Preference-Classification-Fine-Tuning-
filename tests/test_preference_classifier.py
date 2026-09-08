@@ -3,7 +3,10 @@ import pandas as pd
 
 from preference_classifier.augmentation import swap_rows, swap_tta
 from preference_classifier.data import labels_from_frame, prompt_groups, validate_schema
-from preference_classifier.evaluation import average_fold_probabilities, multiclass_log_loss
+from preference_classifier.evaluation import (
+    average_fold_probabilities,
+    multiclass_log_loss,
+)
 
 
 def frame():

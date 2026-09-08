@@ -1,8 +1,9 @@
 """Serializable experiment configuration for public training workflows."""
 
+from collections.abc import Mapping
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 
 @dataclass
@@ -46,5 +47,5 @@ def load_yaml(path: str | Path) -> ExperimentConfig:
     with Path(path).open(encoding="utf-8") as handle:
         values = yaml.safe_load(handle) or {}
     if not isinstance(values, Mapping):
-        raise ValueError("Experiment config must contain a YAML mapping")
+        raise TypeError("Experiment config must contain a YAML mapping")
     return ExperimentConfig.from_mapping(values)

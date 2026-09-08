@@ -25,7 +25,7 @@ def constant_probabilities(frame) -> np.ndarray:
 
 def fit_tfidf_logistic_regression(train_frame, validation_frame, max_features: int = 100_000):
     vectorizer = TfidfVectorizer(max_features=max_features, ngram_range=(1, 2), min_df=2)
-    train_x = vectorizer.fit_transform(comparison_texts(train_frame))
+    vectorizer.fit_transform(comparison_texts(train_frame))
     validation_x = vectorizer.transform(comparison_texts(validation_frame))
     model = LogisticRegression(max_iter=300, multi_class="multinomial")
     model.fit(vectorizer.transform(comparison_texts(train_frame)), labels_from_frame(train_frame).argmax(axis=1))

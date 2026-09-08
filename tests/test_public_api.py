@@ -3,7 +3,10 @@ import pandas as pd
 import pytest
 
 from preference_classifier.data import validate_schema
-from preference_classifier.evaluation import average_fold_probabilities, multiclass_log_loss
+from preference_classifier.evaluation import (
+    average_fold_probabilities,
+    multiclass_log_loss,
+)
 from preference_classifier.splits import grouped_folds
 from preference_classifier.submission import build_submission
 from preference_classifier.training import average_oof_predictions

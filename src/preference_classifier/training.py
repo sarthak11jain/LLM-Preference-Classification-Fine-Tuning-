@@ -6,7 +6,7 @@ import numpy as np
 def cross_entropy_loss(label_smoothing: float = 0.0):
     """Create the loss used by the PyTorch fine-tuning workflows."""
     try:
-        import torch.nn as nn
+        from torch import nn
     except ImportError as exc:
         raise RuntimeError("Install the [training] extra for PyTorch training") from exc
     return nn.CrossEntropyLoss(label_smoothing=label_smoothing)
