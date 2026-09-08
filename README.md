@@ -1,5 +1,10 @@
 # LLM Preference Classification Fine-Tuning
 
+[![Quality](https://github.com/sarthak11jain/LLM-Preference-Classification-Fine-Tuning-/actions/workflows/quality.yml/badge.svg)](https://github.com/sarthak11jain/LLM-Preference-Classification-Fine-Tuning-/actions/workflows/quality.yml)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Kaggle](https://img.shields.io/badge/Kaggle-Competition-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/competitions/llm-classification-finetuning)
+
 Parameter-efficient fine-tuning for predicting which of two chatbot responses human annotators prefer. This repository is the public, reproducible companion to my work on [Kaggle's LLM Classification Finetuning competition](https://www.kaggle.com/competitions/llm-classification-finetuning).
 
 The task is a three-class probability prediction problem. Each row contains a `prompt`, `response_a`, and `response_b`; the model predicts:
@@ -9,6 +14,16 @@ winner_model_a | winner_model_b | winner_tie
 ```
 
 The metric is multiclass log loss, so calibrated probabilities matter more than simply selecting a hard winner.
+
+## Project highlights
+
+| Area | Implementation | Outcome |
+|---|---|---|
+| Preference modeling | Cross-encoder-style three-way classifier | Predicts calibrated A-win, B-win, and tie probabilities |
+| Primary backbones | Gemma-2 9B and ModernBERT-large | Decoder and encoder workflows are both documented |
+| Parameter efficiency | LoRA adapters with trainable classification heads | Makes large-model fine-tuning practical on external GPU infrastructure |
+| Generalization | Prompt-grouped CV, response swaps, swap-aware TTA, fold averaging | Reduces prompt leakage and response-position bias |
+| Evaluation | Multiclass log loss with explicit evidence scope | Separates local validation from public leaderboard results |
 
 ## Current project state
 
@@ -48,27 +63,31 @@ The local values are not leaderboard scores. The Gemma value is a fold-1 validat
 
 ## Method
 
-```text
-prompt + response A + response B
-              │
-      fixed 2,048-token budget
-              │
-  original + response-order-swapped rows
-              │
-  GroupKFold by prompt to prevent leakage
-              │
-     ModernBERT-large or Gemma-2 9B
-              │
-             LoRA
-              │
-        three-class probabilities
-              │
-  remap swapped outputs → average TTA
-              │
-          average fold outputs
+```mermaid
+flowchart TD
+    A[Prompt + response A + response B] --> B[Format and tokenize<br/>2,048-token budget]
+    B --> C[Prompt-grouped cross-validation]
+    C --> D[ModernBERT-large or Gemma-2 9B]
+    D --> E[LoRA adapter + classification head]
+    E --> F[Three-class probabilities]
+    F --> G[Swap-aware TTA and fold averaging]
+    G --> H[submission.csv and log-loss evaluation]
 ```
 
 During training, swapping the two responses also swaps the A/B labels. During inference, swapped predictions are remapped with `[1, 0, 2]` before averaging.
+
+## Model training
+
+The training design has four controls that directly support the CV claims:
+
+1. **Grouped folds:** prompts, rather than individual rows, define fold groups so repeated prompts cannot cross the validation boundary.
+2. **Response-order augmentation:** each labeled example is duplicated with responses A and B exchanged, including the corresponding A/B labels.
+3. **LoRA fine-tuning:** the base model stays mostly frozen while low-rank adapter weights and the classifier head learn the preference task.
+4. **Swap-aware inference:** predictions from the swapped presentation are remapped from `[A, B, tie]` to `[B, A, tie]` before averaging.
+
+The implementation is intentionally split into reusable CPU-safe components and
+GPU-host notebooks. This keeps the logic testable without requiring the
+competition dataset or a gated model download.
 
 ## Repository structure
 
