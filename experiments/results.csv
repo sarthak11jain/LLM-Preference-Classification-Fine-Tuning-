@@ -1,0 +1,7 @@
+experiment,model,metric,value,evaluation_scope,status,evidence
+baseline-modernbert-head,ModernBERT frozen classifier head,log_loss,1.07855,Kaggle public leaderboard,verified,evidence/modernbert_public_score.json and experiments/kaggle-scores.csv; submission after try-sj-11
+modernbert-lora-fold1,ModernBERT-large LoRA,log_loss,1.0121814649,local validation fold 1,verified,evidence/modernbert_fold1_metrics.json from Kaggle CLI output
+modernbert-lora-fold1-public,ModernBERT-large LoRA fold-1 inference,log_loss,1.01474,Kaggle public leaderboard,verified,evidence/modernbert_public_score.json and experiments/kaggle-scores.csv; submission after try-sj-13
+modernbert-lora-folds23-oof,ModernBERT-large LoRA folds 2 and 3,log_loss,1.02492324596,local selected-fold OOF validation,verified,evidence/modernbert_folds23_metrics.json from Kaggle CLI output
+modernbert-lora-3fold-public,ModernBERT-large LoRA three-fold inference,log_loss,1.01414,Kaggle public leaderboard,verified,evidence/modernbert_3fold_inference_metrics.json; submission after try-sj-16
+gemma2-lora-fold1,Gemma-2 9B LoRA,log_loss,0.9965459017,local validation fold 1,verified,evidence/gemma2_fold1_metrics.json

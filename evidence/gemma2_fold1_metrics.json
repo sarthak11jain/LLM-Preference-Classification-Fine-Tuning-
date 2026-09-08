@@ -1,0 +1,9 @@
+{
+  "fold": 1,
+  "best_epoch": 1,
+  "best_val_log_loss": 0.9965459016988565,
+  "max_length": 2048,
+  "use_4bit": false,
+  "source": "original project artifact: kaggle/datasets/gemma2_fold1_adapter/fold_1/metrics.json",
+  "scope": "local validation; not a Kaggle leaderboard score"
+}

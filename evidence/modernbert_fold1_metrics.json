@@ -1,0 +1,10 @@
+{
+  "fold": 1,
+  "best_val_log_loss": 1.0121814648626144,
+  "model": "ModernBERT-large LoRA",
+  "max_length": 2048,
+  "fold": 1,
+  "scope": "local validation; fold 1",
+  "source": "Kaggle CLI output from sarthak11j/try-sj-12/fold_1/metrics.json",
+  "aggregate_three_fold_result": false
+}

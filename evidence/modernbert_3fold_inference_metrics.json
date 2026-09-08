@@ -1,0 +1,10 @@
+{
+  "folds": [1, 2, 3],
+  "max_length_requested": 2048,
+  "max_length_effective": 2048,
+  "workflow": "ModernBERT LoRA three-fold inference with swap-aware TTA",
+  "source": "Kaggle CLI output from sarthak11j/try-sj-16/modernbert_3fold_inference_metrics.json",
+  "public_score": 1.01414,
+  "public_score_source": "competition submission immediately following try-sj-16 run on 2026-05-16",
+  "note": "The local output proves the three-fold inference workflow; the score is the Kaggle public submission score."
+}

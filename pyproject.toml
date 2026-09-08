@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "preference-classifier"
+version = "0.1.0"
+description = "Evidence-oriented tooling for three-way LLM preference classification"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "scikit-learn>=1.3",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+training = ["torch>=2.2", "transformers>=4.45", "peft>=0.12", "accelerate>=0.34"]
+ops = ["kaggle>=1.7.4.5"]
+
+[project.scripts]
+preference-classifier = "preference_classifier.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

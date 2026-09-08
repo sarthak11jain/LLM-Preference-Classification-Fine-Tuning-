@@ -1,0 +1,12 @@
+submission_date,description,public_score,likely_workflow,evidence,status
+2026-05-25T16:02:12.137,blank,,Gemma-2/latest inference sequence,CLI competitions submissions output,complete submission but no public score returned
+2026-05-24T07:34:14,blank,,Gemma-2/inference sequence,CLI competitions submissions output,complete submission but no public score returned
+2026-05-23T06:08:35.947,blank,,prior inference sequence,CLI competitions submissions output,complete submission but no public score returned
+2026-05-16T16:08:43,,1.01414,ModernBERT three-fold inference after try-sj-16,CLI submissions plus try-sj-16 output,verified public score by timestamp alignment
+2026-05-14T15:21:21,,1.01474,ModernBERT fold-1 inference after try-sj-13,CLI submissions plus try-sj-13 output,verified public score by timestamp alignment
+2026-05-12T17:28:02.723,ModernBERT head baseline full run,1.07855,ModernBERT frozen-head baseline after try-sj-11,CLI submission description plus try-sj-11 output,verified public score
+2026-05-01T10:09:50.123,Experiment 009: Fine-tuned DeBERTa-v3-small - Fixed offline path,1.09794,DeBERTa baseline,CLI submission description,verified public score
+2026-05-01T09:48:09,Experiment 009: Fine-tuned DeBERTa-v3-small - Offline fallback,1.09794,DeBERTa baseline,CLI submission description,verified public score
+2026-05-01T04:31:01.453,Experiment 005: notebook-generated constant probability baseline,1.09794,constant probability baseline,CLI submission description,verified public score
+2026-05-01T04:16:45.773,blank,,early baseline,CLI competitions submissions output,complete submission but no public score returned
+2026-05-01T04:13:58.133,Experiment 001: constant probability baseline via notebook,,constant probability baseline,CLI competitions submissions output,complete submission but no public score returned

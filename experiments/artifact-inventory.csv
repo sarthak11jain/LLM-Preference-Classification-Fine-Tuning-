@@ -1,0 +1,21 @@
+relative_path,artifact_type,phase_1_status,public_candidate,role_or_risk
+README.md,project documentation,reviewed,yes,project context and CV provenance
+requirements.txt,dependency list,reviewed,yes,currently incomplete for full training
+src/*.py,reusable and operational Python,reviewed after source audit,sanitized subset,contains core baselines and model workflows; several files contain absolute paths
+notebooks/*.ipynb,experiment notebooks,reviewed,selected only,contains readable training/inference workflows; requires output/path/metadata safety review
+scripts/*.ps1,*.sh,submission helpers,reviewed,templates only,contains hard-coded paths and Kaggle/Vertex operations
+data/raw/train.csv,competition data,private,no,large raw labeled data
+data/raw/test.csv,competition data,private,no,competition test data
+data/raw/sample_submission.csv,submission schema,reviewed,maybe,small but competition-derived
+data/submissions/baseline_submission.csv,generated output,exclude,no,derived submission artifact
+.kaggle/kaggle.json,credential,secret,no,do not publish
+kaggle/datasets/llm_classification_finetuning_private_data/*,private dataset package,private,no,duplicate raw competition data
+kaggle/datasets/gemma2_fold1_adapter/fold_1/adapter_model.safetensors,model adapter,private,no,216 MB trained weight artifact
+kaggle/datasets/gemma2_fold1_adapter/fold_1/tokenizer.json,tokenizer artifact,private/no,review,34 MB model artifact; retain only if licensing permits
+kaggle/datasets/gemma2_fold1_adapter/fold_1/metrics.json,metric artifact,reviewed,yes,primary evidence for Gemma fold-1 0.99655
+kaggle/datasets/gemma2_fold1_adapter/fold_1/README.md,generated model card,reviewed,no,contains unresolved placeholders and private base path
+kaggle/datasets/bitsandbytes_offline_wheels/*,binary wheel/cache,exclude,no,73 MB offline dependency package
+kaggle/submissions/*/kernel-metadata.json,Kaggle metadata,reviewed,template only,contains private IDs and runtime configuration
+kaggle/submissions/*/*.ipynb,Kaggle notebooks,reviewed,selected after sanitization,submission-specific workflows
+kaggle/submissions/submission_023/kernel_output/*.log,run log,reviewed,no,smoke run reports 1.14524 rather than claimed 1.07855
+kaggle/submissions/submission_023/kernel_output/submission.csv,generated submission,exclude,no,derived output
