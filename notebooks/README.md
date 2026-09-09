@@ -3,6 +3,11 @@
 These notebooks are selected public evidence from the original project. They
 show the complete GPU workflows that motivated the reusable package:
 
+- `gemma2_qlora_id_mod5_training.ipynb` — clean full-data Gemma-2 9B 4-bit
+  QLoRA training with the project evaluation rule `id % 5 == 0`.
+- `gemma2_qlora_id_mod5_inference.ipynb` — 2,048-token adapter inference and
+  probability submission generation.
+
 - `gemma2_lora_external_gpu_training.ipynb` — Gemma-2 9B LoRA, grouped folds,
   label smoothing, response swapping, swap TTA, and OOF evaluation.
 - `modernbert_lora_offline_full_submission.ipynb` — ModernBERT-large LoRA

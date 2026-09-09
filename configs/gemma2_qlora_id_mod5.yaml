@@ -1,0 +1,17 @@
+model_name: unsloth/gemma-2-9b-it-bnb-4bit
+max_length_train: 1024
+max_length_inference: 2048
+evaluation_rule: id % 5 == 0
+evaluation_remainder: 0
+num_folds: 5
+fold_index: 0
+num_epochs: 1
+learning_rate: 0.0002
+optimizer: adamw_8bit
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target_modules: [q_proj, k_proj, v_proj]
+use_4bit: true
+swap_tta: false
+seed: 42
