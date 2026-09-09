@@ -9,8 +9,8 @@ the evaluation rule `id % 5 == 0`.
 | Field | Value |
 |---|---|
 | Kaggle kernel | [`sarthak11j/gemma-2-9b-qlora-id-mod-5-evaluation`](https://www.kaggle.com/code/sarthak11j/gemma-2-9b-qlora-id-mod-5-evaluation) |
-| Kernel version | 3 |
-| Status at submission | Running after dependency-isolation retry |
+| Kernel version | 4 |
+| Status at submission | Running after `pyarrow_hotfix` compatibility retry |
 | Training rows | 46,001 |
 | Evaluation rows | 11,476 |
 | Training length | 1,024 tokens |
@@ -42,6 +42,8 @@ artifacts.
 ## Version 1 execution note
 
 Versions 1 and 2 stopped during imports because package installation left the
-Kaggle runtime with a binary NumPy/Pandas mismatch. Version 3 installs only the
-training libraries with `--no-deps`, preserving the runtime's compiled numeric
-stack. No model or evaluation conclusion was drawn from the failed versions.
+Kaggle runtime with a binary NumPy/Pandas mismatch. Version 3 preserved that
+numeric stack but stopped because `datasets` could not import the missing
+`pyarrow_hotfix` module. Version 4 adds that small compatibility package with
+`--no-deps`. No model or evaluation conclusion was drawn from the failed
+versions.
