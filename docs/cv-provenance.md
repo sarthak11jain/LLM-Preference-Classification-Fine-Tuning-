@@ -9,6 +9,13 @@ This table maps each CV bullet to public evidence in the repository.
 | Strengthened generalization with response-order augmentation, swap-aware TTA, fold ensembling, and probability averaging | `src/preference_classifier/augmentation.py`, `src/preference_classifier/evaluation.py`, inference notebooks, `docs/architecture.md` | The transformations and averaging logic are unit-tested; aggregate results are labeled by scope |
 | Recorded 0.99655 validation log loss with Gemma-2 9B, outperforming the 1.01218 ModernBERT LoRA baseline on the same split | `evidence/gemma2_fold1_metrics.json`, `evidence/modernbert_fold1_metrics.json`, `experiments/results.csv` | Both are local fold-1 validation values, not leaderboard scores; CLI-pulled metrics support the comparison |
 
+The separate `id % 5 == 0` Gemma-2 QLoRA reconstruction is audited in
+`docs/gemma2-qlora-phase-1-audit.md` and
+`evidence/gemma2_qlora_phase1_audit.json`. Its reported `0.9371` evaluation and
+approximately `0.941` leaderboard values are intentionally kept outside the
+main results table until the full-data workflow is reproduced with
+machine-readable artifacts.
+
 The repository deliberately does not turn a fold-1 local value into a final
 leaderboard claim. This distinction is part of the evidence quality of the
 project.
