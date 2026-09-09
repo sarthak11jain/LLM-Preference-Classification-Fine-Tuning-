@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SKIP_DIRS = {".git", ".venv", "__pycache__", "_kaggle_cli_audit", "docs", "notebooks"}
+SKIP_DIRS = {".git", ".venv", "__pycache__", "_kaggle_cli_audit", "docs", "notebooks", "kaggle"}
 SKIP_FILES = {Path("experiments/artifact-inventory.csv")}
 PATTERNS = [
     re.compile(r"(?i)kaggle\.json|api[_-]?token|access[_-]?token"),

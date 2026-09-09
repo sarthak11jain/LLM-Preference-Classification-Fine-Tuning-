@@ -16,6 +16,8 @@ approximately `0.941` leaderboard values are intentionally kept outside the
 main results table until the full-data workflow is reproduced with
 machine-readable artifacts.
 
+The Phase 3 execution is tracked in `docs/gemma2-qlora-phase-3-reproduction.md`.
+
 The repository deliberately does not turn a fold-1 local value into a final
 leaderboard claim. This distinction is part of the evidence quality of the
 project.

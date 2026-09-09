@@ -8,6 +8,9 @@ show the complete GPU workflows that motivated the reusable package:
 - `gemma2_qlora_id_mod5_inference.ipynb` — 2,048-token adapter inference and
   probability submission generation.
 
+The executable Kaggle package for the training reproduction is under
+`kaggle/submissions/gemma2_qlora_id_mod5_training/`.
+
 - `gemma2_lora_external_gpu_training.ipynb` — Gemma-2 9B LoRA, grouped folds,
   label smoothing, response swapping, swap TTA, and OOF evaluation.
 - `modernbert_lora_offline_full_submission.ipynb` — ModernBERT-large LoRA
