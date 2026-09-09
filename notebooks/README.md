@@ -11,6 +11,10 @@ show the complete GPU workflows that motivated the reusable package:
 The executable Kaggle package for the training reproduction is under
 `kaggle/submissions/gemma2_qlora_id_mod5_training/`.
 
+The matching inference package is prepared under
+`kaggle/submissions/gemma2_qlora_id_mod5_inference/` and awaits a validated
+trained adapter.
+
 - `gemma2_lora_external_gpu_training.ipynb` — Gemma-2 9B LoRA, grouped folds,
   label smoothing, response swapping, swap TTA, and OOF evaluation.
 - `modernbert_lora_offline_full_submission.ipynb` — ModernBERT-large LoRA

@@ -1,0 +1,12 @@
+{
+  "id": "sarthak11j/gemma-2-9b-qlora-id-mod-5-inference",
+  "title": "Gemma-2 9B QLoRA — id mod 5 inference",
+  "code_file": "gemma2_qlora_id_mod5_inference.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "competition_sources": ["llm-classification-finetuning"]
+}
