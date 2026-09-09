@@ -9,8 +9,8 @@ the evaluation rule `id % 5 == 0`.
 | Field | Value |
 |---|---|
 | Kaggle kernel | [`sarthak11j/gemma-2-9b-qlora-id-mod-5-evaluation`](https://www.kaggle.com/code/sarthak11j/gemma-2-9b-qlora-id-mod-5-evaluation) |
-| Kernel version | 2 |
-| Status at submission | Running after dependency-compatibility retry |
+| Kernel version | 3 |
+| Status at submission | Running after dependency-isolation retry |
 | Training rows | 46,001 |
 | Evaluation rows | 11,476 |
 | Training length | 1,024 tokens |
@@ -41,7 +41,7 @@ artifacts.
 
 ## Version 1 execution note
 
-Version 1 stopped during imports because the Kaggle runtime had a binary
-NumPy/Pandas mismatch after package installation. Version 2 pins compatible
-NumPy, Pandas, and scikit-learn versions before importing the training stack.
-No model or evaluation conclusion was drawn from the failed version.
+Versions 1 and 2 stopped during imports because package installation left the
+Kaggle runtime with a binary NumPy/Pandas mismatch. Version 3 installs only the
+training libraries with `--no-deps`, preserving the runtime's compiled numeric
+stack. No model or evaluation conclusion was drawn from the failed versions.
