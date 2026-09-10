@@ -1,0 +1,11 @@
+{
+  "model": "ModernBERT-large LoRA",
+  "selected_folds": [2, 3],
+  "log_loss": 1.0249232459578863,
+  "fold_log_loss": {
+    "fold_2": 1.007436225692625,
+    "fold_3": 1.0424102662231474
+  },
+  "max_length": 2048,
+  "evaluation": "selected-fold validation"
+}

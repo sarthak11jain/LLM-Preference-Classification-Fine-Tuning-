@@ -1,30 +1,19 @@
-# Reproducibility and provenance
+# Reproducibility
 
-The source project recorded the following implementation settings for the CV
-claims represented here:
+The workflows keep data preparation, label mapping, fold construction, model
+configuration, inference, and submission formatting explicit.
 
-| Claim component | Evidence in this repository |
+| Component | Implementation |
 |---|---|
-| Three-way preference ranking | `src/preference_classifier/data.py`, competition schema |
-| Grouped cross-validation | `src/preference_classifier/splits.py`, `configs/*.yaml` |
+| Three-way preference ranking | `src/preference_classifier/data.py` |
+| Grouped fold construction | `src/preference_classifier/splits.py` |
 | Response-order augmentation | `src/preference_classifier/augmentation.py` |
-| Swap-aware TTA | `src/preference_classifier/augmentation.py` |
+| Swap-aware inference | `src/preference_classifier/inference.py` |
 | Fold probability averaging | `src/preference_classifier/evaluation.py` |
-| LoRA construction | `src/preference_classifier/models.py` |
-| Gemma 2,048-token fold-1 metric | `evidence/gemma2_fold1_metrics.json` |
-| ModernBERT 2,048-token fold-1 metric | `evidence/modernbert_fold1_metrics.json` |
-| ModernBERT selected fold-2/fold-3 OOF metrics | `evidence/modernbert_folds23_metrics.json` |
-| ModernBERT three-fold inference and public score | `evidence/modernbert_3fold_inference_metrics.json`, `experiments/kaggle-scores.csv` |
-| Original full training workflows | `notebooks/` |
+| LoRA model construction | `src/preference_classifier/models.py` |
+| Gemma-2 QLoRA configuration | `configs/gemma2_qlora_id_mod5.yaml` |
+| Recorded metrics | `metrics/` and `experiments/results.csv` |
 
-The recorded Gemma run used a 2,048-token budget, grouped folds, label
-smoothing, LoRA, response swapping, and swap-aware validation inference. The
-original artifact reports `0.9965459016988565` for fold 1. The Kaggle CLI
-retrieved the matching ModernBERT fold-1 artifact, which reports
-`1.0121814648626144`. The CLI competition history also provides public scores
-`1.07855` for the frozen-head baseline, `1.01474` for the fold-1 inference
-submission, and `1.01414` for the three-fold inference submission.
-
-Exact reproduction additionally requires the competition data version, model
-revision, seed, GPU/runtime, and attached adapter artifacts. Those large/private
-artifacts are intentionally not committed.
+Run outputs can vary with data revisions, model revisions, random seeds, GPU
+hardware, and library versions. Competition data, gated weights, and adapters
+are supplied at runtime rather than stored in the repository.

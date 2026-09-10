@@ -1,0 +1,8 @@
+{
+  "model": "ModernBERT-large LoRA",
+  "folds": [1, 2, 3],
+  "max_length": 2048,
+  "swap_tta": true,
+  "evaluation": "public leaderboard",
+  "log_loss": 1.01414
+}

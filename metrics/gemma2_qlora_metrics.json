@@ -1,0 +1,23 @@
+{
+  "model": "Gemma-2 9B 4-bit QLoRA",
+  "base_model": "unsloth/gemma-2-9b-it-bnb-4bit",
+  "quantization": "4-bit",
+  "adapter": "PEFT LoRA",
+  "dataset_rows": 57477,
+  "training_rows": 46001,
+  "validation_rows": 11476,
+  "test_rows": 3,
+  "split": "id % 5 == 0",
+  "training_max_length": 1024,
+  "inference_max_length": 2048,
+  "epochs": 1,
+  "learning_rate": 0.0002,
+  "lora_rank": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.05,
+  "target_modules": ["q_proj", "k_proj", "v_proj"],
+  "results": {
+    "validation_log_loss": 0.9371,
+    "public_leaderboard_log_loss": 0.941
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "model": "ModernBERT frozen classifier head",
+  "evaluation": "public leaderboard",
+  "log_loss": 1.07855
+}

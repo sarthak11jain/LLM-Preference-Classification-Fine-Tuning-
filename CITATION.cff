@@ -3,7 +3,7 @@ title: "LLM Preference Classification Fine-Tuning"
 message: "If this repository supports your work, please cite the repository and the underlying Kaggle competition."
 type: software
 repository-code: "https://github.com/sarthak11jain/LLM-Preference-Classification-Fine-Tuning-"
-abstract: "Evidence-oriented tooling for parameter-efficient three-way LLM preference classification."
+abstract: "Tooling for parameter-efficient three-way LLM preference classification."
 license: MIT
 keywords:
   - preference classification

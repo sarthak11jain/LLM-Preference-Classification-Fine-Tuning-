@@ -1,0 +1,7 @@
+{
+  "model": "ModernBERT-large LoRA",
+  "fold": 1,
+  "evaluation": "validation",
+  "log_loss": 1.0121814648626144,
+  "max_length": 2048
+}

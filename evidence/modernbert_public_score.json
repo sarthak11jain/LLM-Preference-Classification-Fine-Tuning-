@@ -1,8 +1,0 @@
-{
-  "public_score": 1.07855,
-  "model": "ModernBERT frozen classifier head",
-  "scope": "Kaggle public leaderboard",
-  "source": "Kaggle CLI competition submission record dated 2026-05-12, immediately following sarthak11j/try-sj-11",
-  "local_workflow": "try-sj-11 ModernBERT frozen-head full run",
-  "note": "This is a public leaderboard score, not the local LoRA validation metric."
-}

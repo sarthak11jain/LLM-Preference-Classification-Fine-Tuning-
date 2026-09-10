@@ -1,0 +1,9 @@
+{
+  "model": "Gemma-2 9B LoRA",
+  "fold": 1,
+  "evaluation": "validation",
+  "best_epoch": 1,
+  "log_loss": 0.9965459016988565,
+  "max_length": 2048,
+  "use_4bit": false
+}
