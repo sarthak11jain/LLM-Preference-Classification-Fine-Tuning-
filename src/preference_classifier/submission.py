@@ -20,4 +20,5 @@ def build_submission(ids: pd.Series, probabilities: np.ndarray) -> pd.DataFrame:
 
 def write_submission(ids: pd.Series, probabilities: np.ndarray, path: str | Path) -> None:
     submission = build_submission(ids, probabilities)
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
     submission.to_csv(path, index=False)

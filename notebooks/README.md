@@ -1,17 +1,13 @@
 # Notebooks
 
-The notebooks contain the complete GPU workflows:
+The notebooks are thin runtime entrypoints. Reusable data, model,
+training, inference, and evaluation logic lives in
+`src/preference_classifier`.
 
-- `gemma2_qlora_id_mod5_training.ipynb` — Gemma-2 9B 4-bit QLoRA training with
-  the `id % 5 == 0` evaluation split.
-- `gemma2_qlora_id_mod5_inference.ipynb` — 2,048-token inference and probability
-  submission generation.
-- `gemma2_lora_training.ipynb` — Gemma-2 9B LoRA training with grouped folds,
-  response swapping, and probability evaluation.
-- `modernbert_lora_offline_full_submission.ipynb` — ModernBERT-large LoRA
-  training and fold evaluation.
-- `modernbert_lora_3fold_inference_submission.ipynb` — fold loading, swapped
-  inference, probability remapping, and fold averaging.
+- `gemma2_qlora_id_mod5_training.ipynb` — primary Gemma-2 9B 4-bit QLoRA run.
+- `gemma2_qlora_id_mod5_inference.ipynb` — adapter inference and submission.
+- `modernbert_lora_3fold_inference_submission.ipynb` — grouped-fold
+  ModernBERT comparison workflow.
 
-The notebooks expect competition data and model artifacts to be attached at
-runtime. The portable utilities live in `src/preference_classifier/`.
+They require competition data, model weights, and a compatible GPU at runtime;
+the CPU-safe path is documented in the root README.

@@ -1,0 +1,6 @@
+-r requirements-cpu.lock
+accelerate==1.4.0
+bitsandbytes==0.46.1
+peft==0.14.0
+torch==2.6.0
+transformers==4.49.0

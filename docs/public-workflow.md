@@ -5,7 +5,8 @@
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -e ".[dev]"
+python -m pip install -r requirements-dev.lock
+python -m pip install -e .
 ```
 
 ## Check the package
@@ -14,6 +15,7 @@ python -m pip install -e ".[dev]"
 preference-classifier demo-swap
 preference-classifier validate-data --path path\to\train.csv
 preference-classifier show-config --path configs\gemma2_qlora_id_mod5.yaml
+preference-classifier demo --output-dir outputs\demo
 ```
 
 ## Generate a baseline
@@ -35,6 +37,8 @@ augmentation, evaluation, and submission formatting.
 
 ```powershell
 python -m pytest -q
+python -m ruff check src tests scripts
+python -m ruff format --check src tests scripts
 python -m compileall -q src scripts
 python scripts/audit_public_repo.py
 ```

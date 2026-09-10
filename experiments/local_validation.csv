@@ -1,0 +1,5 @@
+run_id,model,model_revision,split_rule,rows,folds,fold,seed,train_length,inference_length,swap_augmentation,swap_tta,metric,score,artifact
+gemma2-qlora-id-mod5,Gemma-2 9B 4-bit QLoRA,unsloth/gemma-2-9b-it-bnb-4bit,id % 5 == 0,11476,1,0,42,1024,2048,true,false,log_loss,0.9371,metrics/gemma2_qlora_metrics.json
+gemma2-lora-fold1,Gemma-2 9B LoRA,google/gemma-2-9b,grouped prompt fold 1,19159,3,1,42,2048,2048,true,true,log_loss,0.9965459017,metrics/gemma2_fold1_metrics.json
+modernbert-lora-fold1,ModernBERT-large LoRA,answerdotai/ModernBERT-large,grouped prompt fold 1,19159,3,1,42,2048,2048,true,true,log_loss,1.0121814649,metrics/modernbert_fold1_metrics.json
+modernbert-lora-folds23,ModernBERT-large LoRA,answerdotai/ModernBERT-large,grouped prompt selected folds 2 and 3,38318,3,2-3,42,2048,2048,true,true,log_loss,1.0249232460,metrics/modernbert_folds23_metrics.json

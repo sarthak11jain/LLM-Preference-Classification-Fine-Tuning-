@@ -10,14 +10,16 @@ from preference_classifier.evaluation import (
 
 
 def frame():
-    return pd.DataFrame({
-        "prompt": ["same", "same", "other"],
-        "response_a": ["a1", "a2", "a3"],
-        "response_b": ["b1", "b2", "b3"],
-        "winner_model_a": [1.0, 0.0, 0.0],
-        "winner_model_b": [0.0, 1.0, 0.0],
-        "winner_tie": [0.0, 0.0, 1.0],
-    })
+    return pd.DataFrame(
+        {
+            "prompt": ["same", "same", "other"],
+            "response_a": ["a1", "a2", "a3"],
+            "response_b": ["b1", "b2", "b3"],
+            "winner_model_a": [1.0, 0.0, 0.0],
+            "winner_model_b": [0.0, 1.0, 0.0],
+            "winner_tie": [0.0, 0.0, 1.0],
+        }
+    )
 
 
 def test_schema_labels_and_prompt_groups():

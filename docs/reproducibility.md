@@ -10,9 +10,11 @@ configuration, inference, and submission formatting explicit.
 | Response-order augmentation | `src/preference_classifier/augmentation.py` |
 | Swap-aware inference | `src/preference_classifier/inference.py` |
 | Fold probability averaging | `src/preference_classifier/evaluation.py` |
+| Calibration metrics and reliability diagram | `src/preference_classifier/calibration.py` |
 | LoRA model construction | `src/preference_classifier/models.py` |
-| Gemma-2 QLoRA configuration | `configs/gemma2_qlora_id_mod5.yaml` |
-| Recorded metrics | `metrics/` and `experiments/results.csv` |
+| Experiment orchestration | `src/preference_classifier/pipeline.py` |
+| Gemma-2 QLoRA configurations | `configs/gemma2_*.yaml` |
+| Recorded metrics | `metrics/` and `experiments/*.csv` |
 
 Run outputs can vary with data revisions, model revisions, random seeds, GPU
 hardware, and library versions. Competition data, gated weights, and adapters

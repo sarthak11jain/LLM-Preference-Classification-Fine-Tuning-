@@ -4,13 +4,15 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SKIP_DIRS = {".git", ".venv", "__pycache__", "_kaggle_cli_audit", "docs", "notebooks", "kaggle"}
+SKIP_DIRS = {".git", ".venv", "__pycache__", ".pytest_cache", ".ruff_cache", "_kaggle_cli_audit"}
 SKIP_FILES = set()
 PATTERNS = [
     re.compile(r"(?i)kaggle\.json|api[_-]?token|access[_-]?token"),
     re.compile(r"(?i)[A-Z]:\\[^\r\n]{2,}\\Users\\"),
-    re.compile(r"(?i)/kaggle/(input|working)"),
 ]
+# Runtime mount paths are allowed because they are part of the documented
+# notebook interface; credentials and local machine paths remain forbidden.
+ALLOWED_RUNTIME_PATHS = re.compile(r"(?i)/kaggle/(input|working)(?:/|\b)")
 FORBIDDEN_SUFFIXES = {".safetensors", ".ckpt", ".bin", ".pt", ".pth"}
 
 
@@ -30,8 +32,9 @@ def files_to_scan():
             text = path.read_text(encoding="utf-8")
         except (UnicodeDecodeError, OSError):
             continue
+        sanitized_text = ALLOWED_RUNTIME_PATHS.sub("<kaggle-runtime>", text)
         for pattern in PATTERNS:
-            if pattern.search(text):
+            if pattern.search(sanitized_text):
                 yield path, f"matched {pattern.pattern}"
                 break
 

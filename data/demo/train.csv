@@ -1,0 +1,11 @@
+id,prompt,response_a,response_b,winner_model_a,winner_model_b,winner_tie
+0,Explain gravity,Gravity attracts masses.,Gravity is a color.,1,0,0
+1,Write a greeting,Hello and welcome!,The square root of two.,1,0,0
+2,Name a fruit,An apple is a fruit.,A bicycle is a fruit.,1,0,0
+3,Explain a loop,A loop repeats instructions.,A loop is a type of weather.,1,0,0
+4,Give a synonym for fast,Quick is a synonym for fast.,Blue is a synonym for fast.,1,0,0
+5,What is two plus two,The answer is five.,The answer is four.,0,1,0
+6,Explain rain,Rain is liquid water falling from clouds.,Rain is sunlight.,1,0,0
+7,Name a planet,Mars is a planet.,A spoon is a planet.,1,0,0
+8,Describe a triangle,A triangle has three sides.,A triangle has seven sides.,1,0,0
+9,What is a tie,Both responses are equally preferred.,Response A is always preferred.,0,0,1

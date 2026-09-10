@@ -1,0 +1,12 @@
+model_name: demo/tfidf
+split_strategy: id_modulo
+split_modulus: 5
+split_remainder: 0
+max_length_train: 256
+max_length_inference: 256
+n_folds: 3
+num_epochs: 1
+use_lora: false
+swap_augmentation: false
+swap_tta: false
+seed: 42

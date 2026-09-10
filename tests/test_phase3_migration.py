@@ -9,8 +9,14 @@ from preference_classifier.preprocessing import allocate_budgets, truncate_head_
 
 
 def test_config_round_trip():
-    config = ExperimentConfig(model_name="example/model", max_length=2048)
+    config = ExperimentConfig(model_name="example/model", max_length_inference=2048)
     assert ExperimentConfig.from_mapping(config.to_dict()) == config
+
+
+def test_config_accepts_legacy_max_length_alias():
+    config = ExperimentConfig.from_mapping({"model_name": "example/model", "max_length": 1024})
+    assert config.max_length_train == 1024
+    assert config.max_length_inference == 1024
 
 
 def test_head_tail_and_budget_helpers():
@@ -19,9 +25,18 @@ def test_head_tail_and_budget_helpers():
 
 
 def test_constant_baseline_and_swap_tta():
-    frame = pd.DataFrame({"prompt": ["p", "q"], "response_a": ["a", "b"], "response_b": ["b", "a"], "winner_model_a": [1, 0], "winner_model_b": [0, 1], "winner_tie": [0, 0]})
+    frame = pd.DataFrame(
+        {
+            "prompt": ["p", "q"],
+            "response_a": ["a", "b"],
+            "response_b": ["b", "a"],
+            "winner_model_a": [1, 0],
+            "winner_model_b": [0, 1],
+            "winner_tie": [0, 0],
+        }
+    )
     probs = constant_probabilities(frame)
-    assert np.allclose(probs, [[0.5, 0.5, 0], [0.5, 0.5, 0]])
+    assert np.allclose(probs, [[1 / 3, 1 / 3, 1 / 3], [1 / 3, 1 / 3, 1 / 3]])
     original = np.array([[0.7, 0.2, 0.1]])
     swapped = np.array([[0.2, 0.7, 0.1]])
     assert np.allclose(combine_swap_tta(original, swapped), original)

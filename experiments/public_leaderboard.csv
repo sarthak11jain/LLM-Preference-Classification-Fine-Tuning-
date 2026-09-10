@@ -1,0 +1,5 @@
+run_id,model,model_revision,split_rule,rows,folds,fold,seed,train_length,inference_length,swap_augmentation,swap_tta,metric,score,artifact
+gemma2-qlora-leaderboard,Gemma-2 9B 4-bit QLoRA,unsloth/gemma-2-9b-it-bnb-4bit,competition leaderboard,,,,42,1024,2048,true,false,log_loss,0.941,metrics/gemma2_qlora_metrics.json
+modernbert-lora-three-fold,ModernBERT-large LoRA,answerdotai/ModernBERT-large,competition leaderboard,,,1-3,42,2048,2048,true,true,log_loss,1.01414,metrics/modernbert_3fold_inference_metrics.json
+modernbert-frozen-head,ModernBERT frozen classifier head,answerdotai/ModernBERT-large,competition leaderboard,,,,42,2048,2048,false,false,log_loss,1.07855,metrics/modernbert_public_score.json
+constant-prior,Uniform constant prior,not-applicable,competition leaderboard,,,,42,,,false,false,log_loss,1.09794,experiments/public_leaderboard.csv

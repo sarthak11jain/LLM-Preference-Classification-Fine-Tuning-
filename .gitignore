@@ -14,9 +14,11 @@ checkpoints/
 *.pth
 *.csv
 !data/sample/*.csv
+!data/demo/*.csv
 !experiments/*.csv
-!evidence/*.csv
+!reports/demo/*.csv
 *.parquet
 .ipynb_checkpoints/
 wandb/
 mlruns/
+.coverage

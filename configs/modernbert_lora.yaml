@@ -1,5 +1,6 @@
 model_name: answerdotai/ModernBERT-large
-max_length: 2048
+max_length_train: 2048
+max_length_inference: 2048
 n_folds: 3
 group_key: prompt
 label_smoothing: 0.03

@@ -20,7 +20,7 @@ def truncate_head_tail(tokens: Sequence[int], budget: int, head_ratio: float = 0
     if len(tokens) <= budget:
         return tokens
     head = int(budget * head_ratio)
-    return tokens[:head] + tokens[-(budget - head):]
+    return tokens[:head] + tokens[-(budget - head) :]
 
 
 def allocate_budgets(lengths: Sequence[int], total_budget: int, shares: Sequence[float]) -> list[int]:

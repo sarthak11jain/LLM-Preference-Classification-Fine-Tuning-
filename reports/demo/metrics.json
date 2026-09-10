@@ -1,0 +1,6 @@
+{
+  "model": "Uniform constant prior",
+  "metric": "log_loss",
+  "score": 1.0986122886681098,
+  "scope": "synthetic CPU demo"
+}

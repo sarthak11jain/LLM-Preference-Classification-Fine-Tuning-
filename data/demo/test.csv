@@ -1,0 +1,4 @@
+id,prompt,response_a,response_b
+100,Explain photosynthesis,Plants use light to make energy.,Photosynthesis is a programming language.
+101,Give a programming tip,Use small tests to catch regressions.,Never test code.
+102,Name a mammal,A whale is a mammal.,A rock is a mammal.
