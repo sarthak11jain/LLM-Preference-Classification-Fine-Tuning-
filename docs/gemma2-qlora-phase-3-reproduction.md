@@ -31,9 +31,11 @@ log loss approximately `0.941`. These values are recorded in
 `experiments/results.csv` with `reported` status and are backed by
 `evidence/gemma2_qlora_public_notebook_run.json`.
 
-The CLI also downloaded a checkpoint and a valid inference submission. Their
-hashes establish which public artifacts were inspected; they do not turn the
-markdown-reported metrics into a fresh rerun.
+The CLI also downloaded a checkpoint and a valid inference submission. The
+checkpoint's `trainer_state.json` reports `max_steps=20`, so it is a demo/
+short-run artifact rather than the full-data adapter implied by the reported
+metrics. Their hashes establish which public artifacts were inspected; they do
+not turn the markdown-reported metrics into a fresh rerun.
 
 No further Kaggle training run is required for the repository documentation
 track. A future rerun may be used as an independent reproducibility check.

@@ -3,7 +3,7 @@ README.md,project documentation,reviewed,yes,project context and CV provenance
 requirements.txt,dependency list,reviewed,yes,currently incomplete for full training
 src/*.py,reusable and operational Python,reviewed after source audit,sanitized subset,contains core baselines and model workflows; several files contain absolute paths
 notebooks/*.ipynb,experiment notebooks,reviewed,selected only,contains readable training/inference workflows; requires output/path/metadata safety review
-scripts/*.ps1,*.sh,submission helpers,reviewed,templates only,contains hard-coded paths and Kaggle/Vertex operations
+"scripts/*.ps1,*.sh",submission helpers,reviewed,templates only,contains hard-coded paths and Kaggle/Vertex operations
 data/raw/train.csv,competition data,private,no,large raw labeled data
 data/raw/test.csv,competition data,private,no,competition test data
 data/raw/sample_submission.csv,submission schema,reviewed,maybe,small but competition-derived

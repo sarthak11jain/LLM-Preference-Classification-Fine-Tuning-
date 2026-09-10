@@ -4,6 +4,7 @@
   "attribution_note": "Per the project owner, this is an individual-project result record; the public URLs identify the inspected notebook artifacts.",
   "result_status": "reported_from_public_notebook_result_section",
   "fresh_rerun": false,
+  "inspection_date": "2026-09-10",
   "source_notebooks": [
     {
       "role": "training",
@@ -42,7 +43,13 @@
     "adapter_checkpoint": {
       "path": "output/checkpoint-20/adapter_model.safetensors",
       "bytes": 31586912,
-      "sha256": "c9f56690e242019e03929fccd1a69cf08876a27591f268089ee059b685b5b5df"
+      "sha256": "c9f56690e242019e03929fccd1a69cf08876a27591f268089ee059b685b5b5df",
+      "scope": "downloaded demo/short-run checkpoint, not the full-data adapter",
+      "trainer_state": {
+        "global_step": 20,
+        "max_steps": 20,
+        "num_train_epochs": 1
+      }
     },
     "adapter_config": {
       "path": "output/checkpoint-20/adapter_config.json",
@@ -53,12 +60,15 @@
       "path": "submission.csv",
       "rows": 3,
       "columns": ["id", "winner_model_a", "winner_model_b", "winner_tie"],
-      "sha256": "89cc8a0105bdc7c644e48c43d9eb06512a712407fe0a222593cf65f1da0d19cf"
+      "sha256": "89cc8a0105bdc7c644e48c43d9eb06512a712407fe0a222593cf65f1da0d19cf",
+      "adapter_source_reference": "Public inference notebook dataset source ggjhkjgd/thgtrg78"
     }
   },
   "limitations": [
     "The pulled source notebooks contain no serialized executed-cell outputs.",
     "The 0.9371 and 0.941 values are reported in the public notebook markdown and are not a fresh rerun by this repository.",
+    "The downloaded checkpoint reports max_steps=20 and is consistent with the notebook's 100-row demo path; it must not be presented as the full-data adapter behind the reported metrics.",
+    "The downloaded inference submission is valid, but its mounted adapter source is separate from the downloaded checkpoint.",
     "The downloadable checkpoint is recorded for provenance but is not committed to the public repository."
   ]
 }

@@ -19,7 +19,9 @@ cells and therefore do not contain serialized metric objects; the reported
 metrics are stated in their markdown result sections. The Kaggle CLI did,
 however, expose a checkpoint output from training and a three-row inference
 submission, whose hashes are recorded in
-`evidence/gemma2_qlora_public_notebook_run.json`.
+`evidence/gemma2_qlora_public_notebook_run.json`. The downloaded training
+checkpoint reports `max_steps=20`, matching the notebook's 100-row demo path;
+it is not the full-data adapter behind the reported metrics.
 
 ## Dataset size and split
 

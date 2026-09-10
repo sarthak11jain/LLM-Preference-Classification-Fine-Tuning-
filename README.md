@@ -75,7 +75,8 @@ The precise provenance of every bullet is documented in [`docs/cv-provenance.md`
 The public notebook record is part of the individual project evidence trail.
 The source notebooks contain no serialized metric outputs, so these two values
 are intentionally distinguished from the machine-verified local artifacts
-above.
+above. The downloaded `checkpoint-20` is a 100-row demo/short-run checkpoint,
+not the full-data adapter behind the reported result.
 
 The local values are not leaderboard scores. The Gemma value is a fold-1 validation result, not a completed three-fold aggregate. The public ModernBERT scores are separate inference submissions.
 
