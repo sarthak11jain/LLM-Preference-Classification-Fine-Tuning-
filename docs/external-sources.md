@@ -1,7 +1,8 @@
-# Phase 1 — External sources and attribution register
+# Public sources and attribution register
 
-External pages are supporting context and licensing references. They are not
-evidence that the project's own metrics were achieved.
+Public pages are used for task definitions, model documentation, and the
+project's recorded Gemma-2 QLoRA run. Result status is stated explicitly so a
+reported notebook value is not confused with a fresh rerun.
 
 | Source | Purpose in the project | Phase 1 note |
 |---|---|---|
@@ -12,23 +13,24 @@ evidence that the project's own metrics were achieved.
 | [Hugging Face PEFT documentation](https://huggingface.co/docs/peft) | LoRA/adapter implementation context | Official library documentation |
 | [ModernBERT paper](https://arxiv.org/abs/2412.13663) | Technical background and citation for ModernBERT | External research reference |
 
-## References reviewed in the original README
+## Public Gemma-2 QLoRA run record
 
-The supplied README also lists public Kaggle notebooks used as methodological
-references. Their scores and artifacts are external and must not be presented as
-this project's results:
+The following public notebooks are the source implementation and result record
+for the primary individual Gemma-2 workflow. The repository uses their reported
+configuration and metrics, while clearly marking them as notebook-reported
+because this repository does not rerun the full GPU job:
 
-- [duohanwang — Gemma-2 QLoRA training](https://www.kaggle.com/code/duohanwang/training-gemma-2-9b-4-bit-qlora-fine-tunin-25a55e)
-- [duohanwang — Gemma-2 inference](https://www.kaggle.com/code/duohanwang/inference-gemma-2-9b-4-bit-qlora-6b251d)
-- [rivaldofauzan — Gemma LoRA training](https://www.kaggle.com/code/rivaldofauzan/2-4-training-gemma-lora-8-5)
-- [rvldfr — LoRA ensemble inference](https://www.kaggle.com/code/rvldfr/3-1-inference-ensemble-lora-4-5)
-- [ainidr25 — DoRA ensemble inference](https://www.kaggle.com/code/ainidr25/3-15-inference-ensemble-dora-8-2)
-- [David Pupăză — competition notebook](https://www.kaggle.com/code/davidpupaza/llm-classification-finetuning)
-- [Carla Cotas — competition notebook](https://www.kaggle.com/code/carlacotas/llm-classification-finetuning-version-3-0)
+- [Gemma-2 QLoRA training notebook](https://www.kaggle.com/code/duohanwang/training-gemma-2-9b-4-bit-qlora-fine-tunin-25a55e)
+- [Gemma-2 QLoRA inference notebook](https://www.kaggle.com/code/duohanwang/inference-gemma-2-9b-4-bit-qlora-6b251d)
 
-## Attribution rules for Phase 2
+The exact configuration, reported values, downloaded-artifact hashes, and
+limitations are captured in
+[`evidence/gemma2_qlora_public_notebook_run.json`](../evidence/gemma2_qlora_public_notebook_run.json).
+
+## Publication rules
 
 - Cite the competition and model cards in the public README.
-- Keep project results separate from external benchmark/reference results.
+- Keep fresh validation, notebook-reported results, and leaderboard results in
+  separate evidence scopes.
 - Record the exact model revision and applicable license/terms when a model is used.
 - Do not redistribute competition data or model weights without confirming the applicable terms.

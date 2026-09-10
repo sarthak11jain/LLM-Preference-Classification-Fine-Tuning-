@@ -5,3 +5,5 @@ modernbert-lora-fold1-public,ModernBERT-large LoRA fold-1 inference,log_loss,1.0
 modernbert-lora-folds23-oof,ModernBERT-large LoRA folds 2 and 3,log_loss,1.02492324596,local selected-fold OOF validation,verified,evidence/modernbert_folds23_metrics.json from Kaggle CLI output
 modernbert-lora-3fold-public,ModernBERT-large LoRA three-fold inference,log_loss,1.01414,Kaggle public leaderboard,verified,evidence/modernbert_3fold_inference_metrics.json; submission after try-sj-16
 gemma2-lora-fold1,Gemma-2 9B LoRA,log_loss,0.9965459017,local validation fold 1,verified,evidence/gemma2_fold1_metrics.json
+gemma2-qlora-public-notebook-eval,Gemma-2 9B 4-bit QLoRA,log_loss,0.9371,reported evaluation from public notebook,reported,evidence/gemma2_qlora_public_notebook_run.json
+gemma2-qlora-public-notebook-lb,Gemma-2 9B 4-bit QLoRA,log_loss,0.941,reported public leaderboard result,reported,evidence/gemma2_qlora_public_notebook_run.json

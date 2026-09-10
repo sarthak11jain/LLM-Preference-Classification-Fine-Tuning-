@@ -2,8 +2,9 @@
 
 This document records the reconstruction of the Gemma-2 9B 4-bit QLoRA
 workflow used for this project. The notebooks were retrieved with the Kaggle
-CLI and checked against the locally available competition files. No notebook
-code has been copied into the public repository during this phase.
+CLI and checked against the locally available competition files. The public
+repository contains a cleaned, adapted implementation; it does not redistribute
+the downloaded model weights.
 
 ## Identified notebooks
 
@@ -14,8 +15,11 @@ code has been copied into the public repository during this phase.
 
 Both kernels are public Kaggle notebooks associated with the LLM Classification
 Finetuning competition. The retrieved source notebooks contain zero executed
-cells and therefore do not contain serialized output objects; the reported
-metrics are stated in their markdown result sections.
+cells and therefore do not contain serialized metric objects; the reported
+metrics are stated in their markdown result sections. The Kaggle CLI did,
+however, expose a checkpoint output from training and a three-row inference
+submission, whose hashes are recorded in
+`evidence/gemma2_qlora_public_notebook_run.json`.
 
 ## Dataset size and split
 
@@ -83,14 +87,15 @@ original output. The notebook uses a weighted blend of `0.45` original and
 | Evaluation split | 0.9371 | Reported in the training notebook markdown |
 | Public leaderboard | approximately 0.941 | Reported in the training/inference notebook markdown |
 
-These values are now treated as results of this individual project workflow.
-Before changing the main results table or CV wording, Phase 2 should reproduce
-the full-data run and capture machine-readable metrics, configuration, and the
-submission record.
+These values are treated as results of this individual project workflow and are
+included in the main results table with `reported` status. They are not labeled
+as a fresh machine-verified rerun. The downloaded adapter and submission provide
+artifact provenance, but the source notebooks do not serialize the metric
+calculation itself.
 
 ## Phase 1 conclusion
 
 The workflow, data size, split rule, model settings, and reported metrics are
-identified. The next phase can safely create a clean production notebook and
-reusable implementation, with the 100-row demonstration selector removed and
-the `id % 5 == 0` evaluation split preserved.
+identified. The clean production notebooks and reusable implementation preserve
+the `id % 5 == 0` evaluation split, while the public result record is tracked
+separately from fresh machine-verified runs.

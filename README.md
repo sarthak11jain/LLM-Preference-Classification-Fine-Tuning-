@@ -36,6 +36,12 @@ Gemma-2 9B      + LoRA + grouped CV + response-order augmentation + swap TTA
 
 Both are first-class workflows. The public package contains reusable implementation; notebooks preserve readable GPU/Kaggle experiment records. Competition data, gated model weights, adapters, and credentials are supplied by the user at runtime rather than distributed here.
 
+The primary Gemma-2 9B 4-bit QLoRA track also preserves a public notebook run
+record. Its reported evaluation log loss is `0.9371` and its reported public
+leaderboard log loss is approximately `0.941`. These values are included as
+`reported` evidence rather than presented as a fresh rerun by this repository;
+see [`evidence/gemma2_qlora_public_notebook_run.json`](evidence/gemma2_qlora_public_notebook_run.json).
+
 ## CV-ready project description
 
 These are the project bullets supported by repository evidence:
@@ -58,6 +64,18 @@ The precise provenance of every bullet is documented in [`docs/cv-provenance.md`
 | ModernBERT-large LoRA, fold-1 inference | 1.01474 | Kaggle public leaderboard | Verified from submission history |
 | ModernBERT-large LoRA, three-fold inference | 1.01414 | Kaggle public leaderboard | Verified from submission history |
 | Gemma-2 9B LoRA | 0.99655 | Local validation, fold 1, 2,048-token input | Verified from metric artifact |
+
+### Public notebook result record
+
+| Experiment | Log loss | Scope | Evidence status |
+|---|---:|---|---|
+| Gemma-2 9B 4-bit QLoRA | 0.9371 | `id % 5 == 0` evaluation split | Reported in public notebook |
+| Gemma-2 9B 4-bit QLoRA | approximately 0.941 | Public leaderboard | Reported in public notebook |
+
+The public notebook record is part of the individual project evidence trail.
+The source notebooks contain no serialized metric outputs, so these two values
+are intentionally distinguished from the machine-verified local artifacts
+above.
 
 The local values are not leaderboard scores. The Gemma value is a fold-1 validation result, not a completed three-fold aggregate. The public ModernBERT scores are separate inference submissions.
 
@@ -156,6 +174,8 @@ Use [`configs/modernbert_lora.yaml`](configs/modernbert_lora.yaml) and the Moder
 
 Use [`configs/gemma2_lora.example.yaml`](configs/gemma2_lora.example.yaml) and [`notebooks/gemma2_lora_external_gpu_training.ipynb`](notebooks/gemma2_lora_external_gpu_training.ipynb). The recorded fold-1 artifact uses a 2,048-token budget and reports validation log loss `0.9965459017`.
 
+For the primary 4-bit QLoRA workflow, use [`configs/gemma2_qlora_id_mod5.yaml`](configs/gemma2_qlora_id_mod5.yaml), [`notebooks/gemma2_qlora_id_mod5_training.ipynb`](notebooks/gemma2_qlora_id_mod5_training.ipynb), and [`notebooks/gemma2_qlora_id_mod5_inference.ipynb`](notebooks/gemma2_qlora_id_mod5_inference.ipynb). This track uses `id % 5 == 0`, 1,024-token training inputs, 2,048-token inference inputs, and the public notebook result record described above.
+
 ### Kaggle/GPU execution
 
 The notebooks are templates and evidence records. On Kaggle or another GPU host, attach permitted competition data, base models, and private adapters through that platform's normal interface. Then write `submission.csv` to the host's working directory. Do not place credentials, private dataset packages, or model weights in this repository.
@@ -168,14 +188,17 @@ The repository deliberately separates local validation from leaderboard scores. 
 
 Fresh runs may differ because of data versions, model revisions, seeds, GPU hardware, library versions, and private adapter artifacts. The repository justifies the engineering claims; it does not promise bitwise reproduction without the original runtime inputs.
 
-## External references
+## Public references and technical sources
 
 - [Kaggle LLM Classification Finetuning](https://www.kaggle.com/competitions/llm-classification-finetuning)
 - [Answer.AI ModernBERT-large](https://huggingface.co/answerdotai/ModernBERT-large)
 - [Google Gemma-2 9B](https://huggingface.co/google/gemma-2-9b)
 - [Hugging Face PEFT](https://huggingface.co/docs/peft)
 
-The external Kaggle notebooks listed in [`docs/external-sources.md`](docs/external-sources.md) are methodological references only; their checkpoints and scores are not claimed as project results.
+The public Gemma-2 QLoRA training and inference notebooks used for this
+workflow, along with their result scope and artifact hashes, are listed in
+[`docs/external-sources.md`](docs/external-sources.md). The repository does not
+redistribute their large model artifacts.
 
 ## Contribution and publication
 

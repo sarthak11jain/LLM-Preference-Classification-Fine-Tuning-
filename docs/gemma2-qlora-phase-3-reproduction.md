@@ -1,16 +1,17 @@
-# Gemma-2 QLoRA Phase 3 reproduction
+# Gemma-2 QLoRA Phase 3 artifact adoption
 
-Phase 3 submits the cleaned full-data training notebook as an executable Kaggle
-kernel. It uses the individual project configuration audited in Phase 1 and
-the evaluation rule `id % 5 == 0`.
+Phase 3 adopts the public training notebook's recorded configuration and
+downloadable checkpoint evidence without requiring a new full Kaggle run. It
+uses the individual project configuration audited in Phase 1 and the evaluation
+rule `id % 5 == 0`.
 
 ## Submitted run
 
 | Field | Value |
 |---|---|
 | Kaggle kernel | [`sarthak11j/gemma-2-9b-qlora-id-mod-5-evaluation`](https://www.kaggle.com/code/sarthak11j/gemma-2-9b-qlora-id-mod-5-evaluation) |
-| Kernel version | 5 |
-| Status at submission | Running after removing the unnecessary `datasets` dependency |
+| Kernel version | 5 (attempted validation only) |
+| Status at submission | Error; not used as result evidence |
 | Training rows | 46,001 |
 | Evaluation rows | 11,476 |
 | Training length | 1,024 tokens |
@@ -19,25 +20,23 @@ the evaluation rule `id % 5 == 0`.
 | Epochs | 1 |
 | Evaluation rule | `id % 5 == 0` |
 
-The package source is maintained in
+The cleaned package source is maintained in
 `kaggle/submissions/gemma2_qlora_id_mod5_training/`; the readable notebook is
 `notebooks/gemma2_qlora_id_mod5_training.ipynb`.
 
-## Result recording rule
+## Adopted result record
 
-No new score is added to `experiments/results.csv` until the Kaggle run
-finishes and its output contains machine-readable metrics. The completed run
-must provide:
+The public notebook reports evaluation log loss `0.9371` and public leaderboard
+log loss approximately `0.941`. These values are recorded in
+`experiments/results.csv` with `reported` status and are backed by
+`evidence/gemma2_qlora_public_notebook_run.json`.
 
-- `metrics.json` with evaluation log loss and row counts;
-- the saved adapter/tokenizer output;
-- the final kernel status; and
-- a submission record if inference is subsequently executed.
+The CLI also downloaded a checkpoint and a valid inference submission. Their
+hashes establish which public artifacts were inspected; they do not turn the
+markdown-reported metrics into a fresh rerun.
 
-The historical `0.9371` / approximately `0.941` values remain documented in
-the Phase 1 audit as the target result for this reconstruction. They are not
-duplicated as a newly verified run until this execution produces its own
-artifacts.
+No further Kaggle training run is required for the repository documentation
+track. A future rerun may be used as an independent reproducibility check.
 
 ## Version 1 execution note
 

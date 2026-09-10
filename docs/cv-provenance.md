@@ -12,9 +12,10 @@ This table maps each CV bullet to public evidence in the repository.
 The separate `id % 5 == 0` Gemma-2 QLoRA reconstruction is audited in
 `docs/gemma2-qlora-phase-1-audit.md` and
 `evidence/gemma2_qlora_phase1_audit.json`. Its reported `0.9371` evaluation and
-approximately `0.941` leaderboard values are intentionally kept outside the
-main results table until the full-data workflow is reproduced with
-machine-readable artifacts.
+approximately `0.941` leaderboard values are included in the main results table
+with `reported` status and are supported by
+`evidence/gemma2_qlora_public_notebook_run.json`. They are not labeled as a
+fresh rerun by this repository.
 
 The Phase 3 execution is tracked in `docs/gemma2-qlora-phase-3-reproduction.md`.
 
