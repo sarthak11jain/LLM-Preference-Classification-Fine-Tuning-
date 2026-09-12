@@ -42,7 +42,7 @@ def fit_tfidf_logistic_regression(train_frame, validation_frame, max_features: i
     vectorizer = TfidfVectorizer(max_features=max_features, ngram_range=(1, 2), min_df=2)
     vectorizer.fit_transform(comparison_texts(train_frame))
     validation_x = vectorizer.transform(comparison_texts(validation_frame))
-    model = LogisticRegression(max_iter=300, multi_class="multinomial")
+    model = LogisticRegression(max_iter=300)
     model.fit(vectorizer.transform(comparison_texts(train_frame)), labels_from_frame(train_frame))
     raw_probabilities = model.predict_proba(validation_x)
     probabilities = np.zeros((len(validation_frame), 3), dtype=float)
